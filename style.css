@@ -1,0 +1,18 @@
+/*body {
+  display: flex;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}*/
+
+input[class=qty] {
+  width: 5rem;
+  height: 2.5rem;
+  text-align: center;
+}
+
+.tea-pic {
+  width: 100%;
+}
