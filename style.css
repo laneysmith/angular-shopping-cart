@@ -13,6 +13,15 @@ input[class=qty] {
   text-align: center;
 }
 
+button[type=submit] {
+  padding-left: 7rem;
+  padding-right: 7rem;
+}
+
 .tea-pic {
   width: 100%;
+}
+
+#quantity {
+  width: 10rem;
 }

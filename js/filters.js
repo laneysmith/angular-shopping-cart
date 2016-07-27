@@ -1,5 +1,6 @@
 app.filter('allTeaCategories', function() {
 	return function(input) {
+		console.log('input=', input);
 		var flattened = [];
 		for (var i = 0; i < input.length; i++) {
 			var current = input[i].categories;
@@ -12,5 +13,10 @@ app.filter('allTeaCategories', function() {
 			return 0;
 		})
 		return sortAlpha;
+	};
+});
+app.filter('teaPrice', function() {
+	return function(num) {
+    return '$' + (num/100).toFixed(2)
 	};
 });
