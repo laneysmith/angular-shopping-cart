@@ -1,0 +1,83 @@
+<div class="row" ng-repeat="item in cart">
+  <a href="/checkout">{{item.name}} - {{item.qty}} - {{item.qty*item.unitPrice}}</a><br>
+</div>
+{{orderTotal | teaPrice}}
+
+<div class="row">
+  <div class="col-md-6">
+    <ul class="nav nav-pills">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+          Category <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li ng-repeat="category in allTeas | allTeaCategories"><a href="" ng-click="$scope.category=category">{{category}}</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+          Sort by Price <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-click="sortTeasBy='price'">Lowest to Highest</a></li>
+          <li><a href="" ng-click="sortTeasBy='-price'">Highest to Lowest</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <input class="pull-right" id="search" ng-model="searchText" placeholder="Type to search">
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Teas</div>
+  <div class="list-group">
+    <li class="list-group-item" ng-repeat="tea in allTeas | orderBy:sortTeasBy | filter:searchText | filter:filterCat">
+      <div class="row">
+        <div class="col-sm-4">
+          <!-- <img src="{{tea.imageUrl}}" class="tea-pic img-thumbnail"> -->
+        </div>
+        <div class="col-sm-8">
+          <h4 class="list-group-item-heading">{{tea.name}}</h4>
+          <p class="list-group-item-text">
+            <p><b>Ingredients</b>: {{tea.ingredients}}</p>
+            <p><b>Caffeine Scale</b>: {{tea.caffeineScale}}</p>
+            <p><b><ng-pluralize count="tea.categories.length"
+             when="{'1' : 'Category',
+                 'other': 'Categories'}"></ng-pluralize></b>:
+              <ul>
+                <li ng-repeat="category in tea.categories">{{category}}</li>
+              </ul>
+            </p>
+            <p><b>Rating</b>: {{tea.rating}}</p>
+            <p><b>In stock?</b> {{tea.inStock}}</p>
+            <p><b>Price</b>: {{tea.price | teaPrice}}</p>
+            <p>
+              <form ng-submit="addOrUpdate(item)">
+                <fieldset>
+                  <div class="form-group">
+                    <label for="quantity"><b>Quantity</b>:</label>
+                      <select class="form-control" id="quantity" ng-model="item.qty">
+                        <option selected>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                      </select><br>
+                      <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                  </div>
+                </fieldset>
+              </form>
+            </p>
+          </p>
+        </div>
+      </div>
+    </li>
+  </div>
+</div>

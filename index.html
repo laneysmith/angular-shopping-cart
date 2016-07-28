@@ -10,8 +10,9 @@
   <link href="https://fonts.googleapis.com/css?family=Amiko|Roboto+Slab|Slabo+27px" rel="stylesheet">
   <link rel="stylesheet" href="yeti.css">
   <link rel="stylesheet" href="style.css">
+  <base href="/">
 </head>
-<body ng-controller="MainController">
+<body>
 
   <nav class="navbar navbar-default">
    <div class="container-fluid">
@@ -26,12 +27,14 @@
      </div>
      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
        <ul class="nav navbar-nav">
-         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-         <li><a href="#">About</a></li>
-         <li><a href="#">Contact</a></li>
+         <!-- <a ng-class="getClass('/tasks')" href="/tasks">Tasks</a> -->
+
+         <li ng-class="getClass('/')"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+         <li><a href="/about">About</a></li>
+         <li><a href="/contact">Contact</a></li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
-         <li><a href="#"><i class="fa fa-shopping-cart fa-lg"></i>&nbsp; Cart (0)</a></li>
+         <li><a href="/checkout"><i class="fa fa-shopping-cart fa-lg"></i>&nbsp; Cart ( {{cartItems.length}} )</a></li>
        </ul>
      </div>
    </div>
@@ -39,86 +42,7 @@
 
   <div class="row container-fluid">
     <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-
-      <div class="row">
-        <div class="col-md-6">
-          <ul class="nav nav-pills">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                Category <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li ng-repeat="category in allTeas | allTeaCategories"><a href="" ng-click="">{{category}}</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                Sort by Price <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="" ng-click="sortTeasBy='price'">Lowest to Highest</a></li>
-                <li><a href="" ng-click="sortTeasBy='-price'">Highest to Lowest</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-6">
-          <input class="pull-right" id="search" ng-model="searchText" placeholder="Search by Name">
-        </div>
-      </div>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">Teas</div>
-        <div class="list-group">
-          <li class="list-group-item" ng-repeat="tea in allTeas | orderBy:sortTeasBy | filter:searchText">
-            <div class="row">
-              <div class="col-sm-4">
-                <img src="{{tea.imageUrl}}" class="tea-pic img-thumbnail">
-              </div>
-              <div class="col-sm-8">
-                <h4 class="list-group-item-heading">{{tea.name}}</h4>
-                <p class="list-group-item-text">
-                  <p><b>Ingredients</b>: {{tea.ingredients}}</p>
-                  <p><b>Caffeine Scale</b>: {{tea.caffeineScale}}</p>
-                  <p><b><ng-pluralize count="tea.categories.length"
-                   when="{'1' : 'Category',
-                       'other': 'Categories'}"></ng-pluralize></b>:
-                    <ul>
-                      <li ng-repeat="category in tea.categories">{{category}}</li>
-                    </ul>
-                  </p>
-                  <p><b>Rating</b>: {{tea.rating}}</p>
-                  <p><b>In stock?</b> {{tea.inStock}}</p>
-                  <p><b>Price</b>: {{tea.price | teaPrice}}</p>
-                  <p>
-                    <form ng-submit="addToCart()">
-                      <fieldset>
-                        <div class="form-group">
-                          <label for="quantity"><b>Quantity</b>:</label>
-                            <select class="form-control" id="quantity">
-                              <option selected>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
-                              <option>6</option>
-                              <option>7</option>
-                              <option>8</option>
-                              <option>9</option>
-                              <option>10</option>
-                            </select><br>
-                            <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
-                        </div>
-                      </fieldset>
-                    </form>
-                  </p>
-                </p>
-              </div>
-            </div>
-          </li>
-        </div>
-      </div>
-
+      <div ui-view></div>
     </div>
   </div>
 
@@ -128,8 +52,10 @@
    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-   <script src="/js/app.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+   <script src="/app.js"></script>
    <script src="/js/data.js"></script>
+   <script src="/js/services.js"></script>
    <script src="/js/controllers.js"></script>
    <script src="/js/directives.js"></script>
    <script src="/js/filters.js"></script>

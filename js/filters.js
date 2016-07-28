@@ -1,6 +1,10 @@
-app.filter('allTeaCategories', function() {
+angular
+	.module('shoppingCartApp')
+	.filter('allTeaCategories', allTeaCategories)
+	.filter('teaPrice', teaPrice);
+
+function allTeaCategories() {
 	return function(input) {
-		console.log('input=', input);
 		var flattened = [];
 		for (var i = 0; i < input.length; i++) {
 			var current = input[i].categories;
@@ -14,9 +18,10 @@ app.filter('allTeaCategories', function() {
 		})
 		return sortAlpha;
 	};
-});
-app.filter('teaPrice', function() {
+}
+
+function teaPrice() {
 	return function(num) {
-    return '$' + (num/100).toFixed(2)
+		return '$' + (num / 100).toFixed(2)
 	};
-});
+}
